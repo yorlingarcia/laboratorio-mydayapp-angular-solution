@@ -9,11 +9,23 @@ import { StorageTodosService } from '../../services/storage-todos.service';
 })
 export class ListaTodosComponent implements OnInit {
   arrayTodos: Todos[] = [];
+
   constructor(private storageTodosService: StorageTodosService) {
     this.arrayTodos = this.storageTodosService.getTodoStorage();
   }
 
   ngOnInit(): void {
     this.arrayTodos = this.storageTodosService.getTodoStorage();
+  }
+
+  isChecked: boolean = false; // Propiedad para almacenar el estado del checkbox
+
+  onCheckboxChange(): void {
+    // Este método se ejecutará cuando el estado del checkbox cambie
+    if (this.isChecked) {
+      console.log('El checkbox ha sido seleccionado.');
+    } else {
+      console.log('El checkbox ha sido deseleccionado.');
+    }
   }
 }

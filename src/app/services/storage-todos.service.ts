@@ -8,8 +8,8 @@ export class StorageTodosService {
   constructor() {}
   todoArray: Todos[] = [];
 
-  setTodoStorage(descripcion: string) {
-    this.todoArray.push({ descripcion, estado: 'pending' });
+  setTodoStorage(id: number, descripcion: string) {
+    this.todoArray.push({ id, descripcion, estado: 'pending' });
     const miArrayJSON = JSON.stringify(this.todoArray);
     localStorage.setItem('mydayapp-angular', miArrayJSON);
   }
