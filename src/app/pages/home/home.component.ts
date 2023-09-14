@@ -8,7 +8,7 @@ import { TodosService } from 'src/app/services/todos.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  value = '';
+  value: string = '';
   todoArray: Todos[] = [];
   miArrayJSON = JSON.stringify(this.todoArray);
 
@@ -16,12 +16,13 @@ export class HomeComponent {
     private todosService: TodosService,
     private storageService: StorageTodosService
   ) {
-    this.todoArray = this.todoArray;
-    this.storageService.getStorage();
+    this.todoArray = this.storageService.getTodoStorage();
   }
 
-  onEnter(value: string) {
-    this.value = value;
-    const texto_2 = this.value.replace(/^\s+|\s+$|\s+(?=\s)/g, '');
+  onEnter() {
+    this.storageService.setTodoStorage(
+      this.value.replace(/^\s+|\s+$|\s+(?=\s)/g, '')
+    );
+    this.value = '';
   }
 }
