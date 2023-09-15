@@ -23,4 +23,16 @@ export class StorageTodosService {
       return [];
     }
   }
+
+  getCounter() {
+    const counter = localStorage.getItem('counter');
+    if (counter) {
+      const toNumber = Number(counter) + 1;
+      localStorage.setItem('counter', `${toNumber}`);
+      return toNumber;
+    } else {
+      localStorage.setItem('counter', `${0}`);
+      return 0;
+    }
+  }
 }

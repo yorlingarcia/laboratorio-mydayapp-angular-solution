@@ -21,7 +21,7 @@ export class HomeComponent {
 
   onEnter() {
     this.storageService.setTodoStorage(
-      Math.floor(Math.random() * 100),
+      this.storageService.getCounter(),
       this.value.replace(/^\s+|\s+$|\s+(?=\s)/g, '')
     );
     this.value = '';
