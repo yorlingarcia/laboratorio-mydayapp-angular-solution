@@ -8,12 +8,12 @@
         placeholder="Type new todo"
         autofocus
         type="text"
-        [(ngModel)]="value"
+        #registrarTodo
         (keyup.enter)="onEnter()"
       />
     </div>
   </header>
-  <div *ngIf="todoArray.length > 0" class="container todoapp-wrapper">
+  <div *ngIf="todos.length > 0" class="container todoapp-wrapper">
     <!-- This section should be hidden by default and shown when there are todos -->
     <app-lista-todos></app-lista-todos>
     <!-- This footer should be hidden by default and shown when there are todos -->

@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Todos } from '../interfaces/todos.interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageTodosService {
-  constructor() {}
-  todoArray: Todos[] = [];
+  private todoArray: Todos[] = [];
+
+  constructor() {
+    this.getTodoStorage();
+  }
+
+  get todos() {
+    return [...this.todoArray];
+  }
 
   setTodoStorage(id: number, descripcion: string) {
+    this.todoArray = this.getTodoStorage();
     this.todoArray.push({ id, descripcion, estado: 'pending' });
     const miArrayJSON = JSON.stringify(this.todoArray);
     localStorage.setItem('mydayapp-angular', miArrayJSON);
@@ -34,5 +43,10 @@ export class StorageTodosService {
       localStorage.setItem('counter', `${0}`);
       return 0;
     }
+  }
+
+  modificacionTodos(arrayTodos: Todos[]) {
+    localStorage.setItem('mydayapp-angular', JSON.stringify(arrayTodos));
+    this.todoArray = arrayTodos;
   }
 }

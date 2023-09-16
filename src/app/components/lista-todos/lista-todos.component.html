@@ -1,6 +1,6 @@
 <section class="main">
   <ul class="todo-list">
-    <li *ngFor="let todo of arrayTodos" [class.completed]="todo.estado">
+    <li *ngFor="let todo of todos" [class.completed]="todo.estado">
       <div class="view">
         <input
           class="toggle"
@@ -14,7 +14,7 @@
       <input class="edit" [value]="todo.descripcion" />
     </li>
 
-    <li class="completed">
+    <!-- <li class="completed">
       <div class="view">
         <input class="toggle" type="checkbox" checked />
         <label>Learn JavaScript</label>
@@ -32,6 +32,6 @@
     </li>
     <li class="editing">
       <app-editar-todo></app-editar-todo>
-    </li>
+    </li> -->
   </ul>
 </section>
