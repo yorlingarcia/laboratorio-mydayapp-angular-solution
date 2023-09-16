@@ -2,15 +2,15 @@
   <ul class="todo-list">
     <li
       *ngFor="let todo of todos; let i = index"
-      [class.completed]="todo.estado"
+      [class.completed]="todo.estado === 'completed' ? true : false"
     >
       <div class="view">
         <input
           class="toggle"
           type="checkbox"
-          [(ngModel)]="todo.estado !== isChecked"
+          [(ngModel)]="todo.estado === isChecked"
           [name]="todo.id.toString()"
-          (change)="onCheckboxChange()"
+          (change)="onCheckboxChange(i)"
         />
         <label>{{ todo.descripcion }}</label>
         <button class="destroy" (click)="eliminarTodo(i)"></button>

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   templateUrl: './lista-todos.component.html',
 })
 export class ListaTodosComponent {
-  isChecked: 'pending' | 'completed' = 'pending'; // Propiedad para almacenar el estado del checkbox
+  isChecked: 'pending' | 'completed' = 'completed'; // Propiedad para almacenar el estado del checkbox
 
   constructor(private storageTodosService: StorageTodosService) {}
 
@@ -17,18 +17,30 @@ export class ListaTodosComponent {
     return this.storageTodosService.todos;
   }
 
-  onCheckboxChange(): void {
+  onCheckboxChange(index: number): void {
     // Este método se ejecutará cuando el estado del checkbox cambie
     if (this.isChecked) {
       console.log('El checkbox ha sido seleccionado.');
+      this.cambioDeEstadoTodo(index);
     } else {
       console.log('El checkbox ha sido deseleccionado.');
+      this.cambioDeEstadoTodo(index);
     }
   }
 
   eliminarTodo(index: number) {
     const myArr = this.todos;
     myArr.splice(index, 1);
+    this.storageTodosService.modificacionTodos(myArr);
+  }
+
+  cambioDeEstadoTodo(index: number) {
+    const myArr = this.todos;
+    if (myArr[index].estado === 'pending') {
+      myArr[index].estado = 'completed';
+    } else {
+      myArr[index].estado = 'pending';
+    }
     this.storageTodosService.modificacionTodos(myArr);
   }
 }
