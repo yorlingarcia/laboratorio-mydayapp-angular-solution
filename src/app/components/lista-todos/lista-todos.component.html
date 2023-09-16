@@ -8,7 +8,7 @@
         <input
           class="toggle"
           type="checkbox"
-          [(ngModel)]="todo.estado === isChecked"
+          [ngModel]="todo.estado === isChecked"
           [name]="todo.id.toString()"
           (change)="onCheckboxChange(i)"
         />
