@@ -8,7 +8,8 @@
         <input
           class="toggle"
           type="checkbox"
-          [(ngModel)]="todo.id"
+          [(ngModel)]="isChecked"
+          [name]="todo.id.toString()"
           (change)="onCheckboxChange()"
         />
         <label>{{ todo.descripcion }}</label>

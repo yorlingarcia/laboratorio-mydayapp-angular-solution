@@ -26,9 +26,9 @@ export class ListaTodosComponent {
     }
   }
 
-  eliminarTodo(i: number) {
+  eliminarTodo(index: number) {
     const myArr = this.todos;
-    myArr.splice(i, 1);
+    myArr.splice(index, 1);
     this.storageTodosService.modificacionTodos(myArr);
   }
 }
