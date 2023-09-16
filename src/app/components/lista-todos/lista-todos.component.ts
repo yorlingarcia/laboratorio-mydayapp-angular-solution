@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   templateUrl: './lista-todos.component.html',
 })
 export class ListaTodosComponent {
-  isChecked: boolean = false; // Propiedad para almacenar el estado del checkbox
+  isChecked: 'pending' | 'completed' = 'pending'; // Propiedad para almacenar el estado del checkbox
 
   constructor(private storageTodosService: StorageTodosService) {}
 
