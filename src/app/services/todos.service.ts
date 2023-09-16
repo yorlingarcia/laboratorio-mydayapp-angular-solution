@@ -6,6 +6,21 @@ import { StorageTodosService } from './storage-todos.service';
   providedIn: 'root',
 })
 export class TodosService {
-  listaTodos: Todos[] = [];
   constructor(private storageTodosService: StorageTodosService) {}
+
+  get todosAll() {
+    return this.storageTodosService.todos;
+  }
+
+  get todosPending() {
+    return this.storageTodosService.todos.filter(
+      (todo) => todo.estado === 'pending'
+    );
+  }
+
+  get todosCompleted() {
+    return this.storageTodosService.todos.filter(
+      (todo) => todo.estado === 'completed'
+    );
+  }
 }

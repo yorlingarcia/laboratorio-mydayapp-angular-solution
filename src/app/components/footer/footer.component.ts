@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { StorageTodosService } from 'src/app/services/storage-todos.service';
+import { TodosService } from 'src/app/services/todos.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,19 +9,25 @@ import { StorageTodosService } from 'src/app/services/storage-todos.service';
   styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent {
-  constructor(private storageTodoService: StorageTodosService) {
-    this.conteoDeTodos = this.storageTodoService.todos.length;
-  }
-
-  conteoDeTodos: number = 0;
+  constructor(
+    private todosService: TodosService,
+    private storageTodoService: StorageTodosService,
+    private route: Router
+  ) {}
 
   get pluralizacionItem() {
-    if (this.conteoDeTodos != 1) {
+    if (this.lengthTodos != 1) {
       return 'items';
     } else return 'item';
   }
 
   get lengthTodos() {
-    return this.storageTodoService.todos.length;
+    if (this.route.url === '/all') {
+      return this.todosService.todosAll.length;
+    } else if (this.route.url === '/pending') {
+      return this.todosService.todosPending.length;
+    } else {
+      return this.todosService.todosCompleted.length;
+    }
   }
 }
