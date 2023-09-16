@@ -25,4 +25,10 @@ export class ListaTodosComponent {
       console.log('El checkbox ha sido deseleccionado.');
     }
   }
+
+  eliminarTodo(i: number) {
+    const myArr = this.todos;
+    myArr.splice(i, 1);
+    this.storageTodosService.modificacionTodos(myArr);
+  }
 }
