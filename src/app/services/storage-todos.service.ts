@@ -45,8 +45,20 @@ export class StorageTodosService {
     }
   }
 
-  modificacionTodos(arrayTodos: Todos[]) {
-    localStorage.setItem('mydayapp-angular', JSON.stringify(arrayTodos));
-    this.todoArray = arrayTodos;
+  modificacionTodos(todo: Todos) {
+    const myArr = this.todos;
+    const index = myArr.findIndex((data) => data.id === todo.id);
+    myArr.splice(index, 1);
+    localStorage.setItem('mydayapp-angular', JSON.stringify(myArr));
+    this.todoArray = myArr;
+  }
+
+  cambioEstadoTodos(myArr: Todos[]) {
+    localStorage.setItem('mydayapp-angular', JSON.stringify(myArr));
+    this.todoArray = myArr;
   }
 }
+
+// const myArr = this.todos;
+// myArr.splice(index, 1);
+// this.storageTodosService.modificacionTodos(myArr);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Todos } from 'src/app/interfaces/todos.interface';
 import { TodosService } from 'src/app/services/todos.service';
 import { StorageTodosService } from '../../services/storage-todos.service';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-todos',
@@ -11,10 +11,20 @@ import { Observable } from 'rxjs';
 export class ListaTodosComponent {
   isChecked: 'pending' | 'completed' = 'completed'; // Propiedad para almacenar el estado del checkbox
 
-  constructor(private storageTodosService: StorageTodosService) {}
+  constructor(
+    private storageTodosService: StorageTodosService,
+    private route: Router,
+    private todosService: TodosService
+  ) {}
 
   get todos(): Todos[] {
-    return this.storageTodosService.todos;
+    if (this.route.url === '/all') {
+      return this.todosService.todosAll;
+    } else if (this.route.url === '/pending') {
+      return this.todosService.todosPending;
+    } else {
+      return this.todosService.todosCompleted;
+    }
   }
 
   onCheckboxChange(index: number): void {
@@ -28,10 +38,8 @@ export class ListaTodosComponent {
     }
   }
 
-  eliminarTodo(index: number) {
-    const myArr = this.todos;
-    myArr.splice(index, 1);
-    this.storageTodosService.modificacionTodos(myArr);
+  eliminarTodo(todo: Todos) {
+    this.storageTodosService.modificacionTodos(todo);
   }
 
   cambioDeEstadoTodo(index: number) {
@@ -41,6 +49,6 @@ export class ListaTodosComponent {
     } else {
       myArr[index].estado = 'pending';
     }
-    this.storageTodosService.modificacionTodos(myArr);
+    this.storageTodosService.cambioEstadoTodos(myArr);
   }
 }

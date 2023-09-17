@@ -13,7 +13,7 @@
           (change)="onCheckboxChange(i)"
         />
         <label>{{ todo.descripcion }}</label>
-        <button class="destroy" (click)="eliminarTodo(i)"></button>
+        <button class="destroy" (click)="eliminarTodo(todo)"></button>
       </div>
       <input class="edit" [value]="todo.descripcion" />
     </li>

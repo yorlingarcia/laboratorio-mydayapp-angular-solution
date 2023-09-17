@@ -30,4 +30,12 @@ export class FooterComponent {
       return this.todosService.todosCompleted.length;
     }
   }
+
+  get completed() {
+    return this.todosService.todosCompleted;
+  }
+
+  eliminarTodoCompleted() {
+    this.storageTodoService.cambioEstadoTodos(this.todosService.todosPending);
+  }
 }

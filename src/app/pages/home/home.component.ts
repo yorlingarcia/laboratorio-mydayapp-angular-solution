@@ -9,9 +9,7 @@ import { StorageTodosService } from 'src/app/services/storage-todos.service';
 export class HomeComponent {
   @ViewChild('registrarTodo') registrarTodo!: ElementRef<HTMLInputElement>;
 
-  constructor(private storageService: StorageTodosService) {
-    console.log(this.storageService.todos);
-  }
+  constructor(private storageService: StorageTodosService) {}
 
   get todos() {
     return this.storageService.todos;
