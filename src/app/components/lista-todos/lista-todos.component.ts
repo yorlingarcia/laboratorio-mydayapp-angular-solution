@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Todos } from 'src/app/interfaces/todos.interface';
 import { TodosService } from 'src/app/services/todos.service';
 import { StorageTodosService } from '../../services/storage-todos.service';
@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ListaTodosComponent {
   isChecked: 'pending' | 'completed' = 'completed'; // Propiedad para almacenar el estado del checkbox
-  modEdicion: boolean = false;
-  @ViewChild('txtEditTodo') txtEditTodo!: ElementRef<HTMLInputElement>;
+  editModeIndex: number | null = null;
   constructor(
     private storageTodosService: StorageTodosService,
     private route: Router,
@@ -25,17 +24,6 @@ export class ListaTodosComponent {
       return this.todosService.todosPending;
     } else {
       return this.todosService.todosCompleted;
-    }
-  }
-
-  onCheckboxChange(index: number): void {
-    // Este método se ejecutará cuando el estado del checkbox cambie
-    if (this.isChecked) {
-      console.log('El checkbox ha sido seleccionado.');
-      this.cambioDeEstadoTodo(index);
-    } else {
-      console.log('El checkbox ha sido deseleccionado.');
-      this.cambioDeEstadoTodo(index);
     }
   }
 
@@ -53,11 +41,20 @@ export class ListaTodosComponent {
     this.storageTodosService.cambioEstadoTodos(myArr);
   }
 
-  modoEdicion() {
-    this.modEdicion = true;
+  enableEditMode(index: number): void {
+    this.editModeIndex = index;
   }
 
-  modTodo(todo: Todos) {
-    console.log(this.txtEditTodo);
+  disableEditMode(): void {
+    this.editModeIndex = null;
+  }
+
+  modificacionTodo(todo: Todos, event: any) {
+    this.storageTodosService.modificacionTodos(todo, true, {
+      id: todo.id,
+      descripcion: event.target.value,
+      estado: todo.estado,
+    });
+    this.disableEditMode();
   }
 }

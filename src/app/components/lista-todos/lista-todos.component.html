@@ -2,7 +2,10 @@
   <ul class="todo-list">
     <li
       *ngFor="let todo of todos; let i = index"
-      [ngClass]="{ completed: !modEdicion, editing: modEdicion }"
+      [ngClass]="{
+        completed: todo.estado === 'completed',
+        editing: i === editModeIndex
+      }"
     >
       <div class="view">
         <input
@@ -10,30 +13,19 @@
           type="checkbox"
           [ngModel]="todo.estado === isChecked"
           [name]="todo.id.toString()"
-          (change)="onCheckboxChange(i)"
+          (change)="cambioDeEstadoTodo(i)"
         />
-        <label (dblclick)="modoEdicion()">{{ todo.descripcion }}</label>
+        <label (dblclick)="enableEditMode(i)">{{ todo.descripcion }}</label>
         <button class="destroy" (click)="eliminarTodo(todo)"></button>
       </div>
-      <input [value]="todo.descripcion" class="edit" />
-    </li>
-
-    <!-- <li class="completed">
-      <div class="view">
-        <input class="toggle" type="checkbox" checked />
-        <label>Learn JavaScript</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value="Learn JavaScript" />
-    </li>
-    -->
-    <li>
-      <div class="view">
-        <input class="toggle" type="checkbox" />
-        <label>Buy a unicorn</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value="Buy a unicorn" />
+      <input
+        autofocus
+        [value]="todo.descripcion"
+        class="edit"
+        (keyup.escape)="disableEditMode()"
+        (keyup.enter)="modificacionTodo(todo, $event)"
+        (blur)="disableEditMode()"
+      />
     </li>
   </ul>
 </section>
