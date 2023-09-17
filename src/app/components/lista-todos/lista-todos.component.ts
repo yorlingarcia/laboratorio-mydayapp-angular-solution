@@ -52,7 +52,7 @@ export class ListaTodosComponent {
   modificacionTodo(todo: Todos, event: any) {
     this.storageTodosService.modificacionTodos(todo, true, {
       id: todo.id,
-      descripcion: event.target.value,
+      descripcion: event.target.value.replace(/^\s+|\s+$|\s+(?=\s)/g, ''),
       estado: todo.estado,
     });
     this.disableEditMode();
