@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Todos } from 'src/app/interfaces/todos.interface';
 import { TodosService } from 'src/app/services/todos.service';
 import { StorageTodosService } from '../../services/storage-todos.service';
@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class ListaTodosComponent {
   isChecked: 'pending' | 'completed' = 'completed'; // Propiedad para almacenar el estado del checkbox
-
+  modEdicion: boolean = false;
+  @ViewChild('txtEditTodo') txtEditTodo!: ElementRef<HTMLInputElement>;
   constructor(
     private storageTodosService: StorageTodosService,
     private route: Router,
@@ -50,5 +51,13 @@ export class ListaTodosComponent {
       myArr[index].estado = 'pending';
     }
     this.storageTodosService.cambioEstadoTodos(myArr);
+  }
+
+  modoEdicion() {
+    this.modEdicion = true;
+  }
+
+  modTodo(todo: Todos) {
+    console.log(this.txtEditTodo);
   }
 }

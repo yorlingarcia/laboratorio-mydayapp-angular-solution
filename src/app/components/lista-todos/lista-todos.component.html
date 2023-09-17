@@ -2,7 +2,7 @@
   <ul class="todo-list">
     <li
       *ngFor="let todo of todos; let i = index"
-      [class.completed]="todo.estado === 'completed' ? true : false"
+      [ngClass]="{ completed: !modEdicion, editing: modEdicion }"
     >
       <div class="view">
         <input
@@ -12,10 +12,10 @@
           [name]="todo.id.toString()"
           (change)="onCheckboxChange(i)"
         />
-        <label>{{ todo.descripcion }}</label>
+        <label (dblclick)="modoEdicion()">{{ todo.descripcion }}</label>
         <button class="destroy" (click)="eliminarTodo(todo)"></button>
       </div>
-      <input class="edit" [value]="todo.descripcion" />
+      <input [value]="todo.descripcion" class="edit" />
     </li>
 
     <!-- <li class="completed">
@@ -26,6 +26,7 @@
       </div>
       <input class="edit" value="Learn JavaScript" />
     </li>
+    -->
     <li>
       <div class="view">
         <input class="toggle" type="checkbox" />
@@ -34,8 +35,5 @@
       </div>
       <input class="edit" value="Buy a unicorn" />
     </li>
-    <li class="editing">
-      <app-editar-todo></app-editar-todo>
-    </li> -->
   </ul>
 </section>
